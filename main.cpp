@@ -1,6 +1,8 @@
 /**
  * @file main.hpp
- * This is a simple example to show how to include the GridInterpolant in a program
+ * This is a simple example to show how to include the GridInterpolant in a program. 
+ * It is a manual implementation of the function and grid that interpolated on in 
+ * the README.md
  *
  * @author Josh Cook
  *
