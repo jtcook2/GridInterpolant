@@ -7,7 +7,7 @@ project(TestInterpolator)
 add_executable(Main main.cpp)
 
 # specify the C++ standard
-set(CMAKE_CXX_FLAGS "-std=c++11 -stdlib=libc++ -Weverything")
+set(CMAKE_CXX_FLAGS "-std=c++11")
 
 
 
