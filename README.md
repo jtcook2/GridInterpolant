@@ -1,5 +1,5 @@
-# GridInterpolator
-GridInterpolator is a header file only class that provides a way to linearly interpolate data on an N-D gridded data set. The class should provide an equivalent functionality to MATLAB's griddedInterpolant class or SciPy's RegularGridInterpolator class in Python. 
+# GridInterpolant
+GridInterpolant is a header file only class that provides a way to linearly interpolate data on an N-D gridded data set. The class should provide an equivalent functionality to MATLAB's griddedInterpolant class or SciPy's RegularGridInterpolator class in Python. 
 
 In MATLAB, gridded data sets can be generated and the griddedInterpolant object instantiated using the following code.
 ```MATLAB
@@ -23,9 +23,9 @@ Z = X^2 + 3*Y
 F = RegularGridInterpolator((x,y), Z)
 ```
 
-The GridInterpolator class constructor is 
+The GridInterpolant class constructor is 
 ```c++
-GridInterpolator(std::vector< std::vector<double> > inputGrid, std::vector<double> outputValues);
+GridInterpolant(std::vector< std::vector<double> > inputGrid, std::vector<double> outputValues);
 ```
 where an equivalent representation of the grids in Python and MATLAB above is 
 ```c++
@@ -39,7 +39,7 @@ int main(){
 }
 ```
 
-The outputValues for the constructor of the GridInterpolator take the values of Z in the MATLAB and Python codes above in column major format. This can be done using the following commands in MATLAB and Python
+The outputValues for the constructor of the GridInterpolant take the values of Z in the MATLAB and Python codes above in column major format. This can be done using the following commands in MATLAB and Python
 ```MATLAB
 % Setup column major outputValues
 outputValues = Z(:)
@@ -50,4 +50,4 @@ outputValues = Z(:)
 outputValues = Z.ravel(order='F')
 ```
 
-The handling of loading external data in C++ is outside the scope of interpolation class as there are numerous ways to achieve this. The MATLAB and Python codes above are provided to provide an understanding of GridInterpolator constructor and its use.
+The handling of loading external data in C++ is outside the scope of interpolation class as there are numerous ways to achieve this. The MATLAB and Python codes above are provided to provide an understanding of GridInterpolant constructor and its use.
