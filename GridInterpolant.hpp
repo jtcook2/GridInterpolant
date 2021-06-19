@@ -9,6 +9,7 @@
 **/
 #include <vector>
 #include <iostream>
+#include <algorithm>
 
 // -------------------------------------------------------------------
 // GridInterpolant class
@@ -42,6 +43,9 @@ class GridInterpolant{
 
     // Evaluate the interpolant object
     std::vector<double> eval(std::vector<double> point);
+
+    // Build an ndgrid (MATLAB) or meshgrid using 'ij' indexing and column major format (Python)
+    static std::vector<std::vector<double>> meshgrid(std::vector<std::vector<double>> inputGrid);
 
   private:
 
@@ -224,4 +228,45 @@ void GridInterpolant::stackGrid(){
   for(std::vector<double> subGrid: inputGrid){
     stackedGrid.insert(stackedGrid.end(), subGrid.begin(), subGrid.end());
   }
+}
+
+// method similar to Python's meshgrid using column major format or MATLAB's ndgrid
+std::vector<std::vector<double>> GridInterpolant::meshgrid(std::vector<std::vector<double>> inputGrid){
+
+  // Get the size of the grid on input dimension
+  int numberOfElements = 1;
+  std::vector<double> inputGridSizes = {};
+  for(std::vector<double> grid : inputGrid){
+     inputGridSizes.push_back(grid.size());
+     numberOfElements *= grid.size();
+  }
+  int numberOfInputDimensions = inputGrid.size();
+
+  std::vector<std::vector<double>> mesh;
+  for(int ii = numberOfInputDimensions-1; ii > -1;  ii--){
+    // Product of remaining dimensions
+    int backwardProduct = 1;
+    for(int jj = ii-1; jj > -1; jj--){
+      backwardProduct *= inputGrid.at(jj).size();
+    }
+
+    // create mesh along input dimension
+    std::vector<double> meshdim;
+    for(int kk = 0; kk < inputGridSizes.at(ii); kk++){
+      for(int mm = 0; mm < backwardProduct; mm++){
+        meshdim.push_back( inputGrid.at(ii).at(kk) );
+      }
+    }
+    mesh.push_back(meshdim);
+
+    // replicate vector approprate amount along each input dimension
+    int numberOfReplicates = numberOfElements/mesh.back().size() - 1;
+    std::vector<double> tempMeshCopy = mesh.back();
+    for(int mm = 0; mm < numberOfReplicates; mm++){
+      mesh.back().insert(mesh.back().end(), tempMeshCopy.begin(), tempMeshCopy.end());
+    }
+  }
+  // Return the meshgrid in the order it was recieved
+  std::reverse(mesh.begin(), mesh.end());
+  return mesh;
 }
