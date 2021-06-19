@@ -30,6 +30,7 @@ GridInterpolant(std::vector< std::vector<double> > inputGrid, std::vector<double
 where an equivalent representation of the grids in Python and MATLAB above is 
 ```c++
 #include<vector>
+#include "GridInterpolant.hpp"
 
 int main(){
   std::vector<double> x = {0, 1, 2, 3, 4, 5};
