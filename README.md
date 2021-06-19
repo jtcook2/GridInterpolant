@@ -34,7 +34,8 @@ where an equivalent representation of the grids in Python and MATLAB above is
 int main(){
   std::vector<double> x = {0, 1, 2, 3, 4, 5};
   std::vector<double> y = {6, 7, 8, 9, 10};
-  vector<vector<double>> inputGrid = {x, y};
+  std::vector<std::vector<double>> inputGrid = {x, y};
+  std::vector<std::vector<double>> inputMesh = GridInterpolant::meshgrid(inputGrid);
   return 0;
 }
 ```
