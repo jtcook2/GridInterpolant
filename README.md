@@ -62,9 +62,9 @@ outputValues = outputValues.ravel(order='F')
 ```
 
 ## Build and Test the Examples in main.cpp
-To build and test the two examples in main.cpp CMake and a compiler that supports the C++11 standard.
+To build and test the two examples in main.cpp, CMake and a compiler that supports the C++11 standard are required.
 
-Once these are obtained, cd the the directory with repository is cloned and type the following
+Once these are obtained, cd to the directory where the repository is cloned and type the following
 commands at the terminal.
 ```shell
 mkdir build
