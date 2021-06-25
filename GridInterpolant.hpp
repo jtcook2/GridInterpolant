@@ -24,14 +24,18 @@
 //               be in column major format 
 //
 // An example of how to construct the GridInterpolant and how to evaluate it are provided below:
-// 
-// std::vector<std::vector<double>> inputGrid = {{0, 1, 2, 3, 4, 5},
-//                                               {6, 7, 8, 9, 10}};
 //  
-//  std::vector<double> outputValues = {18, 19, 22, 27, 34, 43, 21, 22, 25,
-//                                      30, 37, 46, 24, 25, 28, 33, 40, 49,
-//                                      27, 28, 31, 36, 43, 52, 30, 31, 34,
-//                                      39, 46, 55};
+//  std::vector<double> x = {0, 1, 2, 3, 4, 5};
+//  std::vector<double> y = {6, 7, 8, 9, 10};
+//  std::vector<std::vector<double>> inputGrid2D = {x, y};
+//  std::vector<std::vector<double>> inputMesh2D = GridInterpolant::meshgrid(inputGrid2D);
+//
+//  X = inputMesh2D.at(0);
+//  Y = inputMesh2D.at(1);
+//  outputValues = {};
+//  for(unsigned int ii = 0; ii < X.size(); ii++){
+//    outputValues.push_back( -6*X.at(ii) + 3*Y.at(ii) );
+//  }
 //
 //  GridInterpolant gridInterpolant(inputGrid, outputValues);
 //  std::vector<double> outputVal = gridInterpolant.eval({0.5, 9.9});
