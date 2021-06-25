@@ -40,6 +40,7 @@ int main(){
   return 0;
 }
 ```
+Here, the elements of inputMesh are equivalent to X and Y except they are in column major format.
 
 The outputValues for the constructor of the GridInterpolant take the values of Z in the MATLAB and Python codes above in column major format. This can be done using the following commands in MATLAB and Python
 ```MATLAB
