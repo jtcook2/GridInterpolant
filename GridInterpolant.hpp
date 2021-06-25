@@ -10,6 +10,7 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <string>
 
 // -------------------------------------------------------------------
 // GridInterpolant class
@@ -109,23 +110,36 @@ GridInterpolant::GridInterpolant(std::vector< std::vector<double> > inputGrid,
 
   // Check dimension consistency
   bool isConsistent = ((this->outputValues.size() % this->numberOfElements) == 0);
-  if(!isConsistent){
-    throw "The input grid and output values provided have in consistent dimensions.";
+  try {
+    if(!isConsistent){
+      throw "ERROR: The input grid and output values provided have in consistent dimensions.";
+    }
+  } catch (const char* msg) {
+     std::cerr << msg << std::endl;
   }
 
   //Stack grid
   this->stackGrid();
 
-  // Check input and output dimensions
+  // Check output dimension is consistent with grid
   bool isOutputDimensionConsistent = this->outputDimension ==
     this->outputValues.size() / this->numberOfElements;
-  if (!isOutputDimensionConsistent){
-    throw "The input dimension is not consistent with the provided grid";
+  try {
+    if (!isOutputDimensionConsistent){
+      throw "ERROR: The output dimension is not consistent with the provided grid";
+    }
+  } catch (const char* msg) {
+     std::cerr << msg << std::endl;
   }
   
+  // Check input dimension is consistent with grid
   bool isInputDimensionConsistent = this->inputDimension == (this->offset.size() - 1);
-  if (!isOutputDimensionConsistent){
-    throw "The input dimension is not consistent with the provided grid";
+  try {
+    if (!isInputDimensionConsistent){
+      throw "ERROR: The input dimension is not consistent with the provided grid";
+    }
+  } catch (const char* msg) {
+     std::cerr << msg << std::endl;
   }
 }
 
@@ -191,6 +205,7 @@ void GridInterpolant::calculateWeights(std::vector<double> x, std::vector<int> &
 
 
 // Linear search for finding the low index on a given dimension
+// TO DO: Sorted array needs to be changed binary search
 int GridInterpolant::getLowIndex(double xi, std::vector<double> subGrid, int subGridSize, int inputNumber){
   int ii;
   for(ii = 0; ii < (subGridSize - 2); ii++) {
