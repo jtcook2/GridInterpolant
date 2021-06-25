@@ -7,8 +7,8 @@ In MATLAB, gridded data sets can be generated and the griddedInterpolant object 
 x = linspace(0, 5, 6);
 y = linspace(6, 10, 5);
 [X, Y] = ndgrid(x,y);
-Z = X.^2 + 3.*Y
-F = griddedInterpolant(X, Y, Z, 'linear')
+outputValues = -6*X + 3.*Y
+F = griddedInterpolant(X, Y, outputValues, 'linear')
 ```
 
 In Python, the equivalent gridded data set is generated and the RegularGridInterpolator object is instantiated using the code below.
@@ -19,8 +19,8 @@ from scipy.interpolate import RegularGridInterpolator
 x = np.linspace(0, 5, 6)
 y = np.linspace(6, 10, 5)
 X, Y = np.meshgrid(x, y, indexing='ij')
-Z = X^2 + 3*Y
-F = RegularGridInterpolator((x,y), Z)
+outputValues = -6*X + 3*Y
+F = RegularGridInterpolator((x,y), outputValues)
 ```
 
 The GridInterpolant class constructor is 
@@ -36,7 +36,15 @@ int main(){
   std::vector<double> x = {0, 1, 2, 3, 4, 5};
   std::vector<double> y = {6, 7, 8, 9, 10};
   std::vector<std::vector<double>> inputGrid = {x, y};
-  std::vector<std::vector<double>> inputMesh = GridInterpolant::meshgrid(inputGrid);
+  std::vector<std::vector<double>> inputMesh = GridInterpolant::meshgrid(inputGrid2D);
+  std::vector<double> X = inputMesh.at(0);
+  std::vector<double> Y = inputMesh.at(1);
+  std::vector<double> outputValues = {};
+  for(unsigned int ii = 0; ii < X.size(); ii++){
+    outputValues.push_back( -6*X.at(ii) + 3*Y.at(ii) );
+  }
+  GridInterpolant gridInterpolant(inputGrid2D, outputValues);
+  std::vector<double> interpolatedOutput = gridInterpolant.eval({1.3, 9.3}})
   return 0;
 }
 ```
@@ -45,12 +53,12 @@ Here, the elements of inputMesh are equivalent to X and Y except they are in col
 The outputValues for the constructor of the GridInterpolant take the values of Z in the MATLAB and Python codes above in column major format. This can be done using the following commands in MATLAB and Python
 ```MATLAB
 % Setup column major outputValues
-outputValues = Z(:)
+outputValues = outputValues(:)
 ```
 
 ```Python
 # Setup column major outputValues
-outputValues = Z.ravel(order='F')
+outputValues = outputValues.ravel(order='F')
 ```
 
 The handling of loading external data in C++ is outside the scope of interpolation class as there are numerous ways to achieve this. The MATLAB and Python codes above are provided to provide an understanding of GridInterpolant constructor and its use.
