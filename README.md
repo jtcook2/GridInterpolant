@@ -27,7 +27,7 @@ The GridInterpolant class constructor is
 ```c++
 GridInterpolant(std::vector< std::vector<double> > inputGrid, std::vector<double> outputValues);
 ```
-where an equivalent representation of the grids in Python and MATLAB above is 
+where an equivalent representation of the grids in Python and MATLAB in C++ above is 
 ```c++
 #include<vector>
 #include "GridInterpolant.hpp"
@@ -61,4 +61,16 @@ outputValues = outputValues(:)
 outputValues = outputValues.ravel(order='F')
 ```
 
-The handling of loading external data in C++ is outside the scope of interpolation class as there are numerous ways to achieve this. The MATLAB and Python codes above are provided to provide an understanding of GridInterpolant constructor and its use.
+## Build and Test the Examples in main.cpp
+To build and test the two examples in main.cpp CMake and a compiler that supports the C++11 standard.
+
+Once these are obtained, cd the the directory with repository is cloned and type the following
+commands at the terminal.
+```shell
+mkdir build
+cd build
+cmake ..
+make
+./Main
+```
+These commands compile the examples and run them.
